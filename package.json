@@ -1,0 +1,27 @@
+{
+  "name": "space-intel",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "db:push": "pnpm --filter @space-intel/db push",
+    "db:generate": "pnpm --filter @space-intel/db generate",
+    "db:migrate": "pnpm --filter @space-intel/db migrate",
+    "db:seed": "pnpm --filter @space-intel/db seed",
+    "db:studio": "pnpm --filter @space-intel/db studio"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
