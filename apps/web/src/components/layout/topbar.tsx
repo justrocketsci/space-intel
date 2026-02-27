@@ -1,9 +1,11 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Search, Bell } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
+import { Search, Bell, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? "";
+const hasClerk = clerkPubKey.length > 0 && !clerkPubKey.includes("replace_me");
 
 const ROUTE_TITLES: Record<string, string> = {
   "/": "Command Center",
@@ -101,21 +103,38 @@ export function Topbar() {
           <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
         </button>
 
-        {/* User button (Clerk) */}
-        <UserButton
-          appearance={{
-            elements: {
-              avatarBox: "w-8 h-8",
-              userButtonPopoverCard:
-                "bg-[#111827] border border-[#1e293b] shadow-xl",
-              userButtonPopoverActionButton:
-                "text-gray-300 hover:text-white hover:bg-[#1e293b]",
-              userButtonPopoverActionButtonText: "text-sm",
-              userButtonPopoverFooter: "hidden",
-            },
-          }}
-        />
+        {/* User avatar — uses Clerk UserButton when configured, placeholder otherwise */}
+        {hasClerk ? (
+          <ClerkUserButton />
+        ) : (
+          <div
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-[#1e293b] text-gray-400"
+            title="Sign in (configure Clerk to enable auth)"
+          >
+            <User className="w-4 h-4" />
+          </div>
+        )}
       </div>
     </header>
+  );
+}
+
+function ClerkUserButton() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { UserButton } = require("@clerk/nextjs") as typeof import("@clerk/nextjs");
+  return (
+    <UserButton
+      appearance={{
+        elements: {
+          avatarBox: "w-8 h-8",
+          userButtonPopoverCard:
+            "bg-[#111827] border border-[#1e293b] shadow-xl",
+          userButtonPopoverActionButton:
+            "text-gray-300 hover:text-white hover:bg-[#1e293b]",
+          userButtonPopoverActionButtonText: "text-sm",
+          userButtonPopoverFooter: "hidden",
+        },
+      }}
+    />
   );
 }
