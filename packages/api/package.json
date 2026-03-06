@@ -1,0 +1,20 @@
+{
+  "name": "@space-intel/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./root": "./src/root.ts"
+  },
+  "dependencies": {
+    "@trpc/server": "^11.0.0",
+    "@space-intel/db": "workspace:*",
+    "drizzle-orm": "^0.38.0",
+    "zod": "^3.24.0",
+    "superjson": "^2.2.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.0"
+  }
+}
